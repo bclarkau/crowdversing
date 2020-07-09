@@ -1,0 +1,9 @@
+{
+  "name": "Crowdversing",
+  "version": "1.0.0",
+  "description": "Trivia versus 100 CPU players",
+  "main": "index.js",
+  "repository": "https://github.com/bclarkau/crowdversing",
+  "author": "Ben Clark",
+  "license": "MIT"
+}
