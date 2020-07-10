@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Title from "./screens/Title"
 import Game from "./screens/Game"
 import Lose from "./screens/Lose"
+import Win from "./screens/Win"
 
 const App = () => {
 	const [status, setStatus] = useState('');
@@ -15,6 +16,7 @@ const App = () => {
 			screen = <Lose setStatus={setStatus} />
 			break;
 		case 'won' : 
+			screen = <Win setStatus={setStatus} />
 			break;
 		default : 
 			screen = <Title setStatus={setStatus} />

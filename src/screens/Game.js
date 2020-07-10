@@ -7,9 +7,10 @@ const Game = props => {
 	const [counter, setCounter] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState('');
+	let numQuestions = 5;
 
 	useEffect(() => {
-		getQuestions()
+		getQuestions(numQuestions)
 		.then(data => {
 			switch(data.response_code) {
 				// if response_code is 0 (success), set questions
@@ -31,7 +32,13 @@ const Game = props => {
 	 * @param {*} correctIndex 
 	 */
 	function handleAnswer(selectedIndex, correctIndex) {
-		if(selectedIndex === correctIndex) {
+		let isCorrect = selectedIndex === correctIndex;
+		let lastQuestion = counter+1 === numQuestions;
+
+		if(isCorrect && lastQuestion) {
+			console.log('WE HAVE A WINNER');
+			props.setStatus('won');
+		} else if(isCorrect) {
 			console.log('CORRECT');
 			setCounter(counter+1);
 		} else {
