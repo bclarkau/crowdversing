@@ -1,17 +1,20 @@
 import React from "react";
 
 const Question = props => {
+	console.log('correct answer', props.data.correct_answer);
+
 	// insert the correct answer at a random point in the answers array 
 	let answers = [...props.data.incorrect_answers];
-	let index = Math.floor((Math.random() * 3));
-	answers.splice(index, 0, props.data.correct_answer);
+	let correctIndex = Math.floor((Math.random() * 3));
+	answers.splice(correctIndex, 0, props.data.correct_answer);
 	
+
 	return <div>
 		<h2>Question {props.number}:</h2>
 		<p>Category: {props.data.category}</p>
 		<p>{props.data.question}</p>
 		<div>
-			{answers.map((label, i) => <button key={i}>{label}</button>)}
+			{answers.map((label, i) => <button key={i} onClick={() => props.callback(i, correctIndex)}>{label}</button>)}
 		</div>
 	</div>;
 };

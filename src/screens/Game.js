@@ -25,7 +25,22 @@ const Game = props => {
 		.finally(() => setIsLoading(false))
 	}, []);
 
-	return isLoading ? "loading" : <Question number={counter+1} data={questions[counter]} />;
+	/**
+	 * Check if selected answer is correct. If yes, go to next question. If no, go to lose screen.
+	 * @param {*} selectedIndex 
+	 * @param {*} correctIndex 
+	 */
+	function handleAnswer(selectedIndex, correctIndex) {
+		if(selectedIndex === correctIndex) {
+			console.log('CORRECT');
+			setCounter(counter+1);
+		} else {
+			console.log('WRONG');
+			props.setStatus('lost');
+		}
+	}
+
+	return isLoading ? "loading" : <Question number={counter+1} data={questions[counter]} callback={handleAnswer} />;
 };
 
 export default Game;
