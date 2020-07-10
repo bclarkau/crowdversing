@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Question from "../components/Question";
 import { getQuestions } from "../services/api";
+import { generatePlayers } from "../services/game";
 
 const Game = props => {
 	const [questions, setQuestions] = useState([]);
@@ -10,6 +11,9 @@ const Game = props => {
 	let numQuestions = 5;
 
 	useEffect(() => {
+		let players = generatePlayers();
+		console.log('players', players);
+
 		getQuestions(numQuestions)
 		.then(data => {
 			switch(data.response_code) {

@@ -1,0 +1,52 @@
+// Names sourced from http://listofrandomnames.com/
+
+export const maleNames = [
+	'Abram', 'Adalberto', 'Adrian', 'Agustin', 'Albert', 'Alden', 'Alex', 'Alexander', 'Alonso', 'Alphonse', 'Alvin', 'Amado', 'Andrea', 'Andres', 'Anton', 
+	'Antone', 'Arlen', 'Armand', 'Art', 'Ashley', 'Aubrey', 'Aurelio', 'Barney', 'Bart', 'Beau', 'Benedict', 'Bernard', 'Bernie', 'Bertram', 'Boris', 'Boyce', 
+	'Brad', 'Bradford', 'Brendon', 'Brenton', 'Britt', 'Broderick', 'Bruno', 'Bryce', 'Buford', 'Burt', 'Burton', 'Carlo', 'Carson', 'Carter', 'Cary', 'Chad', 
+	'Chance', 'Charles', 'Charlie', 'Chi', 'Chong', 'Claude', 'Clayton', 'Clemente', 'Cleveland', 'Clint', 'Conrad', 'Corey', 'Cory', 'Craig', 'Cyril', 'Damian', 
+	'Daren', 'Dario', 'Darius', 'Daron', 'Darren', 'Darrin', 'Darryl', 'Dee', 'Del', 'Delmar', 'Delmer', 'Demarcus', 'Demetrius', 'Denis', 'Deon', 'Derek', 
+	'Deshawn', 'Devon', 'Dewitt', 'Diego', 'Dion', 'Donnell', 'Donnie', 'Donny', 'Dorian', 'Douglass', 'Drew', 'Dusty', 'Dylan', 'Earle', 'Earnest', 'Ed', 
+	'Edmond', 'Edmundo', 'Edward', 'Elden', 'Elias', 'Ellis', 'Elmer', 'Elroy', 'Elton', 'Elwood', 'Emanuel', 'Emile', 'Emory', 'Erasmo', 'Eric', 'Ernest', 
+	'Errol', 'Esteban', 'Eugenio', 'Everett', 'Everette', 'Ezequiel', 'Felton', 'Florencio', 'Floyd', 'Forest', 'Francisco', 'Frankie', 'Freddie', 'Freddy', 
+	'Fredric', 'Fredrick', 'Gail', 'Gale', 'Garland', 'Garret', 'Garth', 'Gary', 'Gaston', 'Gavin', 'Gayle', 'Genaro', 'Gil', 'Gilbert', 'Gino', 'Glenn', 'Gordon', 
+	'Grady', 'Greg', 'Grover', 'Guadalupe', 'Guillermo', 'Hai', 'Hank', 'Harlan', 'Harold', 'Harvey', 'Haywood', 'Heath', 'Herb', 'Hilario', 'Hilton', 'Homer', 
+	'Horace', 'Horacio', 'Hosea', 'Hoyt', 'Huey', 'Hugo', 'Hung', 'Irving', 'Isiah', 'Jacinto', 'Jackson', 'Jacob', 'Jae', 'Jamaal', 'Jamal', 'Jamel', 'Jamie', 
+	'Jamison', 'Jan', 'Jarrod', 'Jay', 'Jean', 'Jefferson', 'Jeffry', 'Jeramy', 'Jere', 'Jerome', 'Jesse', 'Jessie', 'Jim', 'Jonah', 'Jordan', 'Joseph', 'Julio', 
+	'Karl', 'Kasey', 'Kendrick', 'Keneth', 'Kenneth', 'Kenton', 'Kieth', 'King', 'Kip', 'Kory', 'Kristofer', 'Lacy', 'Laurence', 'Lavern', 'Laverne', 'Lawrence', 
+	'Leandro', 'Lee', 'Len', 'Lenard', 'Leonard', 'Levi', 'Lindsey', 'Linwood', 'Lorenzo', 'Lou', 'Louie', 'Lucas', 'Lucio', 'Lucius', 'Lyndon', 'Major', 'Marc', 
+	'Marcel', 'Marco', 'Marion', 'Markus', 'Marvin', 'Maxwell', 'Mckinley', 'Melvin', 'Michael', 'Michel', 'Mikel', 'Milan', 'Millard', 'Milton', 'Mohammed', 
+	'Moises', 'Morris', 'Mose', 'Moshe', 'Nathan', 'Ned', 'Nicky', 'Nicolas', 'Noble', 'Noe', 'Norbert', 'Norman', 'Normand', 'Numbers', 'Ollie', 'Orval', 
+	'Oswaldo', 'Otto', 'Percy', 'Quinn', 'Quintin', 'Ramiro', 'Randell', 'Randy', 'Ray', 'Rayford', 'Refugio', 'Reggie', 'Reid', 'Renato', 'Richie', 'Ricky', 
+	'Rico', 'Rigoberto', 'Robby', 'Rocco', 'Rodolfo', 'Rogelio', 'Ronnie', 'Roscoe', 'Ross', 'Roy', 'Royce', 'Rudolph', 'Rupert', 'Russel', 'Russell', 'Sammie', 
+	'Sammy', 'Santo', 'Scot', 'Scott', 'Sergio', 'Seymour', 'Shaun', 'Shawn', 'Shayne', 'Shelton', 'Sherman', 'Shon', 'Sidney', 'Solomon', 'Son', 'Sonny', 'Stan', 
+	'Stanton', 'Stefan', 'Sterling', 'Sylvester', 'Tad', 'Tanner', 'Terrance', 'Terrence', 'Theodore', 'Tim', 'Timothy', 'Todd', 'Tracy', 'Trent', 'Trey', 'Troy', 
+	'Tyler', 'Tyrell', 'Tyron', 'Tyson', 'Valentine', 'Van', 'Vance', 'Vern', 'Vernon', 'Vincenzo', 'Virgil', 'Vito', 'Von', 'Wade', 'Waldo', 'Walker', 'Warren', 
+	'Whitney', 'Wilber', 'Wilbert', 'Wilburn', 'Williams', 'Willis', 'Winfred', 'Zachary'
+];
+
+export const femaleNames = [ 
+	'Adria', 'Afton', 'Alishia', 'Allene', 'Anette', 'Angella', 'Anissa', 'Anita', 'Ann', 'Anna', 'Annett', 'Anya', 'Ara', 'Ardell', 'Arletha', 'Arletta', 
+	'Arvilla', 'Asha', 'Assunta', 'Audry', 'Aura', 'Bailey', 'Bertha', 'Bessie', 'Bok', 'Bong', 'Brianne', 'Bronwyn', 'Brooke', 'Buena', 'Burma', 'Cami', 
+	'Carisa', 'Carlena', 'Carletta', 'Cassie', 'Catharine', 'Catina', 'Cecille', 'Ceola', 'Chanell', 'Charmain', 'Chasity', 'Chau', 'Cher', 'Cherri', 
+	'Cheryll', 'Chloe', 'Claudia', 'Clementine', 'Concha', 'Corie', 'Criselda', 'Cristin', 'Dacia', 'Dalila', 'Danille', 'Dannielle', 'Dayna', 'Deann', 
+	'Debra', 'Delana', 'Delisa', 'Delois', 'Demetria', 'Deonna', 'Desirae', 'Despina', 'Dia', 'Donnetta', 'Doreatha', 'Dulcie', 'Edra', 'Ehtel', 'Eleanore', 
+	'Elene', 'Elfrieda', 'Eliz', 'Elizabeth', 'Ella', 'Ellena', 'Elna', 'Elnora', 'Elsy', 'Elza', 'Emelia', 'Enedina', 'Erna', 'Ernestine', 'Estell', 'Ester', 
+	'Eugena', 'Eula', 'Eustolia', 'Eva', 'Evelia', 'Evia', 'Faith', 'Felisha', 'Fidelia', 'Florene', 'Francina', 'Gabrielle', 'Gala', 'Gemma', 'Ginette', 
+	'Ginger', 'Ginny', 'Giovanna', 'Glenna', 'Glory', 'Gwyn', 'Gwyneth', 'Hanna', 'Hayley', 'Heidy', 'Helene', 'Hien', 'Hilde', 'Hue', 'Ida', 'Ilse', 'Imelda', 
+	'Indira', 'Irene', 'Isaura', 'Isis', 'Jada', 'Jannet', 'January', 'Jeane', 'Jeanelle', 'Jeannetta', 'Jenae', 'Jenell', 'Jenniffer', 'Jo', 'Joanna', 'Jodie', 
+	'Jolanda', 'Joleen', 'Jolie', 'Josefine', 'Josie', 'Jovita', 'Julene', 'Jutta', 'Kandis', 'Kareen', 'Karey', 'Karla', 'Karma', 'Karolyn', 'Kassandra', 
+	'Katelyn', 'Kazuko', 'Keena', 'Kelsey', 'Kenia', 'Kiara', 'Kiera', 'Kori', 'Kourtney', 'Kristen', 'Kristie', 'Kristle', 'Krysta', 'Kyla', 'Kylie', 'Ladonna', 
+	'Lael', 'Laila', 'Lakeshia', 'Lanelle', 'Lang', 'Lashanda', 'Latesha', 'Lauri', 'Lavone', 'Lavonia', 'Leeann', 'Leigha', 'Lela', 'Leona', 'Li', 'Libby', 
+	'Lilian', 'Lillie', 'Lissa', 'Lizabeth', 'Lorrine', 'Lottie', 'Louise', 'Lu', 'Lucila', 'Lucille', 'Luetta', 'Lyda', 'Lynette', 'Lynne', 'Macie', 'Magali', 
+	'Maira', 'Maisie', 'Mamie', 'Maragaret', 'Maranda', 'Marcelina', 'Marcia', 'Marcie', 'Margarette', 'Margery', 'Margret', 'Margrett', 'Maricela', 'Maricruz', 
+	'Mariette', 'Marlen', 'Marlene', 'Marline', 'Marni', 'Marylouise', 'Maryrose', 'Matilde', 'Maybell', 'Mechelle', 'Megan', 'Meghan', 'Melisa', 'Mercedes', 
+	'Micha', 'Michell', 'Milagro', 'Mildred', 'Minnie', 'Mirian', 'Mona', 'Monique', 'Muriel', 'Myrle', 'Naida', 'Nakesha', 'Nana', 'Nannette', 'Natosha', 'Nellie', 
+	'Nelly', 'Nerissa', 'Nickole', 'Nita', 'Nobuko', 'Noelle', 'Noemi', 'Norah', 'Novella', 'Ocie', 'Palma', 'Pamelia', 'Parthenia', 'Paula', 'Phoebe', 'Queenie', 
+	'Rachal', 'Racquel', 'Raisa', 'Rebecka', 'Reginia', 'Remona', 'Rena', 'Renita', 'Reyna', 'Richelle', 'Rima', 'Rita', 'Rochelle', 'Rona', 'Rosaria', 'Roseann', 
+	'Roselia', 'Rosetta', 'Rosita', 'Rossie', 'Roxana', 'Roxann', 'Rufina', 'Sade', 'Sally', 'Samatha', 'Samira', 'Sanda', 'Santina', 'Sarai', 'Sarina', 'Selena', 
+	'Selene', 'Serita', 'Setsuko', 'Shala', 'Shana', 'Shandra', 'Sharell', 'Sharika', 'Sharri', 'Shauna', 'Shenna', 'Sheryl', 'Shirlene', 'Shirly', 'Siu', 'Sondra', 
+	'Starla', 'Susie', 'Sylvia', 'Taisha', 'Takako', 'Tamela', 'Tamisha', 'Tanesha', 'Tanya', 'Tierra', 'Torri', 'Tran', 'Treasa', 'Trula', 'Twanna', 'Tyesha', 
+	'Ulrike', 'Vada', 'Velma', 'Verla', 'Vernice', 'Veronique', 'Vinnie', 'Violette', 'Willena', 'Winter', 'Yaeko', 'Yan', 'Yasmine', 'Ying', 'Yoko', 'Yolande', 
+	'Yon', 'Zenia', 'Zonia', 'Zulma'
+];
