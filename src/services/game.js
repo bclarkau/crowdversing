@@ -12,8 +12,8 @@ export function generatePlayers(amount=100) {
 		players.push({
 			name: isMale ? maleNames[Math.floor(Math.random() * maleNames.length)] : femaleNames[Math.floor(Math.random() * femaleNames.length)],
 			intelligence: Math.random(), // float value between 0 and 1
-			color: Math.floor(Math.random() * 12) + 1, // int value between 1 and 12
-			icon: (isMale ? 'm' : 'f') + (Math.floor(Math.random() * 24) + 1) // int value between 1 and 24
+			color: Math.floor(Math.random() * 4) + 1, // int value between 1 and 10
+			icon: (isMale ? 'm' : 'f') + (Math.floor(Math.random() * 23) + 1) // int value between 1 and 24
 		});
 	}
 	

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./theme.js";
 import Title from "./screens/Title"
 import Game from "./screens/Game"
 import Lose from "./screens/Lose"
@@ -24,7 +26,9 @@ const App = () => {
 			screen = <Title setStatus={setStatus} />
 	}
 
-	return screen;
+	return <ThemeProvider theme={theme}>
+		{screen}
+	</ThemeProvider>;
 };
 
 export default App;
