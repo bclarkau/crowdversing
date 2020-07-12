@@ -4,13 +4,7 @@ import Player from "./Player";
 
 const Grid = styled.div`
 	display: grid;
-	grid-template-columns: 20% 20% 20% 20% 20%;
-`;
-
-const GridItem = styled.div`
-	text-align: center; 
-	// background: ${props => props.theme.playerColor[props.color]};
-	border-radius: 10%;
+	grid-template-columns: repeat(6, minmax(0, 1fr));
 `;
 
 const PlayerGrid = props => {

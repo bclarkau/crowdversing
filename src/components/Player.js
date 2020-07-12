@@ -4,8 +4,7 @@ import Avatar from './Avatar';
 
 const GridItem = styled.div`
 	text-align: center; 
-	// background: ${props => props.theme.playerColor[props.color]};
-	border-radius: 10%;
+	font-size: 0.8rem;
 `;
 
 const Player = props => <GridItem color={props.player.color}>

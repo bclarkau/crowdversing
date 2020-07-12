@@ -3,7 +3,7 @@ import { maleNames, femaleNames } from '../dictionaries/names';
 /**
  * Generate players
  */
-export function generatePlayers(amount=100) {
+export function generatePlayers(amount=108) {
 	let players = [];
 
 	for(let i=0; i<amount; i++) {

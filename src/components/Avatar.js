@@ -4,12 +4,11 @@ import playerIcon from '../../assets/players';
 
 const IconWrapper = styled.div`
 	text-align: center; 
-	// background: ${props => props.theme.playerColor[props.color]};
-	border-radius: 10%;
+	margin-top: 10px;
 
 	svg {
 		fill: ${props => props.theme.playerColor[props.color]};
-		width: auto;
+		width: 80%;
 		height: auto;
 	}
 `;
