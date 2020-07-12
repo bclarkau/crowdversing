@@ -7,7 +7,7 @@ const IconWrapper = styled.div`
 	margin-top: 10px;
 
 	svg {
-		fill: ${props => props.theme.playerColor[props.color]};
+		fill: ${props => props.active ? props.theme.playerColor[props.fill] : props.theme.playerLost};
 		width: 80%;
 		height: auto;
 	}
@@ -16,7 +16,7 @@ const IconWrapper = styled.div`
 const Avatar = props => {
 	const Icon = playerIcon[props.icon];
 
-	return <IconWrapper color={props.color}>
+	return <IconWrapper fill={props.color} active={props.active}>
 		<Icon />
 	</IconWrapper>
 }

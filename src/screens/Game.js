@@ -15,15 +15,12 @@ const tempQuestions = {"response_code":0,"results":[{"category":"General Knowled
 
 const Game = props => {
 	const [questions, setQuestions] = useState([]);
-	const [players, setPlayers] = useState([]);
 	const [counter, setCounter] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState('');
 	let numQuestions = 20;
 
 	useEffect(() => {
-		setPlayers(generatePlayers());
-
 		// TODO: re-enable live questions
 		setQuestions(tempQuestions.results);
 		setIsLoading(false);
@@ -66,9 +63,9 @@ const Game = props => {
 	}
 
 	return isLoading ? "loading" : <Stage>
-		<PlayerGrid players={players.filter((p, i) => i < players.length/2)} />
+		<PlayerGrid players={32} counter={counter} question={questions[counter]} />
 		<Question number={counter+1} data={questions[counter]} callback={handleAnswer} />
-		<PlayerGrid players={players.filter((p, i) => i >= players.length/2)} />
+		<PlayerGrid players={32} counter={counter} question={questions[counter]} />
 	</Stage>
 };
 
