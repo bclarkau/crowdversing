@@ -30,7 +30,7 @@ const PlayerGrid = props => {
 	}
 		
 	return <Grid>
-		{[...Array(props.players)].map((player, i) => <Player key={i} seed={Math.random()} counter={props.counter} question={questionDifficulty} />)}
+		{[...Array(props.players)].map((player, i) => <Player key={i} seed={Math.random()} counter={props.counter} question={questionDifficulty} reveal={props.reveal} />)}
 	</Grid>
 };
 

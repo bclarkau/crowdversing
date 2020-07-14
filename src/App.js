@@ -7,7 +7,8 @@ import Lose from "./screens/Lose"
 import Win from "./screens/Win"
 
 // TODO: Add icon credit to footer when styled 
-// Icons made by <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+// Player icons made by <a href="https://www.flaticon.com/authors/iconixar" title="iconixar">iconixar</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+// Status Icons made by <a href="https://www.flaticon.com/free-icon/close_151882?term=cross&page=1&position=2" title="Chanut">Chanut</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 const App = () => {
 	const [status, setStatus] = useState('');
 	let screen;
@@ -15,6 +16,9 @@ const App = () => {
 	switch(status) {
 		case 'playing' : 
 			screen = <Game setStatus={setStatus} />
+			break;
+		case 'answered' : 
+			screen = <Game setStatus={setStatus} reveal={true} />
 			break;
 		case 'lost' : 
 			screen = <Lose setStatus={setStatus} />

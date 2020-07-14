@@ -16,6 +16,7 @@ const tempQuestions = {"response_code":0,"results":[{"category":"General Knowled
 const Game = props => {
 	const [questions, setQuestions] = useState([]);
 	const [counter, setCounter] = useState(0);
+	const [revealAnswer, setRevealAnswer] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState('');
 	let numQuestions = 20;
@@ -55,17 +56,23 @@ const Game = props => {
 			props.setStatus('won');
 		} else if(isCorrect) {
 			console.log('CORRECT');
-			setCounter(counter+1);
+			props.setStatus('answered');
 		} else {
 			console.log('WRONG');
 			props.setStatus('lost');
 		}
 	}
 
+	function nextQuestion() {
+		console.log('loading next question');
+		props.setStatus('playing');
+		setCounter(prevState => ++prevState);
+	}
+
 	return isLoading ? "loading" : <Stage>
-		<PlayerGrid players={32} counter={counter} question={questions[counter]} />
-		<Question number={counter+1} data={questions[counter]} callback={handleAnswer} />
-		<PlayerGrid players={32} counter={counter} question={questions[counter]} />
+		<PlayerGrid players={32} counter={counter} question={questions[counter]} reveal={props.reveal} />
+		<Question number={counter+1} data={questions[counter]} callback={handleAnswer} next={nextQuestion} reveal={props.reveal} />
+		<PlayerGrid players={32} counter={counter} question={questions[counter]} reveal={props.reveal} />
 	</Stage>
 };
 
