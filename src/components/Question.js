@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { answerQuestion, nextQuestion } from "../redux/actions";
 
 const Question = props => {
 	console.log('correct answer', props.data.correct_answer);
@@ -13,13 +15,19 @@ const Question = props => {
 		<p>Category: {props.data.category}</p>
 		<p>{props.data.question}</p>
 		{!props.reveal && <div>
-			{answers.map((label, i) => <button key={i} onClick={() => props.callback(i, correctIndex)}>{label}</button>)}
+			{answers.map((label, i) => <button key={i} onClick={() => props.answerQuestion(i, correctIndex)}>{label}</button>)}
 		</div>}
 		{props.reveal && <div>
 			{props.data.correct_answer} CORRECT!
-			<button onClick={props.next}>Next question</button>
+			<button onClick={props.nextQuestion}>Next question</button>
 		</div>}
 	</div>;
 };
 
-export default Question;
+const mapStateToProps = state => ({
+	number: state.currentQuestion + 1,
+	data: state.questions[state.currentQuestion],
+	reveal : state.revealAnswer
+});
+
+export default connect(mapStateToProps, { answerQuestion, nextQuestion })(Question);

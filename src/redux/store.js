@@ -4,6 +4,8 @@ import thunk from 'redux-thunk';
 const initialState = {
 	status : 'playing',
 	questions : [],
+	currentQuestion : 0,
+	revealAnswer : false,
 	players : [],
 	isLoading : true,
 	error : ''
@@ -15,8 +17,17 @@ function reducer(state = initialState, action) {
 	switch(action.type) {
 		case 'START_GAME' : 
 			return {
+				...initialState // reset back to the initial state
+			}
+		case 'WIN_GAME' : 
+			return {
 				...state,
-				status: 'playing'
+				status: 'won'
+			}
+		case 'LOSE_GAME' : 
+			return {
+				...state,
+				status: 'lost'
 			}
 		case 'DATA_SUCCESS' : 
 			return {
@@ -29,6 +40,17 @@ function reducer(state = initialState, action) {
 				...state,
 				error: action.error,
 				isLoading: false
+			}
+		case 'ANSWER_CORRECT' : 
+			return {
+				...state,
+				revealAnswer : true
+			}
+		case 'NEXT_QUESTION' : 
+			return {
+				...state,
+				revealAnswer : false,
+				currentQuestion: state.currentQuestion + 1
 			}
 		default:
 			return state;

@@ -1,3 +1,5 @@
+import { store } from './store';
+
 export function setQuestions(amount) {
 	console.info(`Fetching ${amount} questions`);
 
@@ -11,26 +13,59 @@ export function setQuestions(amount) {
 		});
 	}
 
+	// return dispatch => {
+	// 	fetch(`https://opentdb.com/api.php?amount=${amount}&type=multiple`, {
+	// 		crossDomain: true,
+	// 		method: 'GET',
+	// 		mode: 'cors'
+	// 	})
+	// 	.then(response => { 
+	// 		if (response.ok) {
+	// 			return response.json();
+	// 		} else {
+	// 			throw new Error(response.statusText);
+	// 		}
+	// 	})
+	// 	.then(data => dispatch({
+	// 		type: 'DATA_SUCCESS',
+	// 		questions: data.results
+	// 	}))
+	// 	.catch(error => dispatch({
+	// 		type: 'DATA_ERROR',
+	// 		error: error
+	// 	}));
+	// }
+}
+
+/**
+ * Check if selected answer is correct. If yes, go to next question. If no, go to lose screen.
+ * @param {*} selectedIndex 
+ * @param {*} correctIndex 
+ */
+export function answerQuestion(selectedIndex, correctIndex) {	
+	let isCorrect = selectedIndex === correctIndex;
+	let lastQuestion = store.getState().currentQuestion + 1 === store.getState().questions.length;
+
+	if(isCorrect && lastQuestion) {
+		return dispatch => {
+			dispatch({ type: 'WIN_GAME' });
+		}
+	} 
+	
+	if(isCorrect) {
+		return dispatch => {
+			dispatch({ type: 'ANSWER_CORRECT' });
+		}
+	} 
+
 	return dispatch => {
-		fetch(`https://opentdb.com/api.php?amount=${amount}&type=multiple`, {
-			crossDomain: true,
-			method: 'GET',
-			mode: 'cors'
-		})
-		.then(response => { 
-			if (response.ok) {
-				return response.json();
-			} else {
-				throw new Error(response.statusText);
-			}
-		})
-		.then(data => dispatch({
-			type: 'DATA_SUCCESS',
-			questions: data.results
-		}))
-		.catch(error => dispatch({
-			type: 'DATA_ERROR',
-			error: error
-		}));
+		dispatch({ type: 'LOSE_GAME' });
 	}
+}
+
+/**
+ * Load the next question
+ */
+export const nextQuestion = () => dispatch => {
+	dispatch({ type: 'NEXT_QUESTION' })
 }

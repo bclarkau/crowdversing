@@ -12,34 +12,11 @@ const Stage = styled.div`
 `;
 
 const Game = props => {
-	const [counter, setCounter] = useState(0);
-	const [revealAnswer, setRevealAnswer] = useState(false);
 	let numQuestions = 20;
 
 	useEffect(() => {
 		props.setQuestions(numQuestions);
 	}, []);
-
-	/**
-	 * Check if selected answer is correct. If yes, go to next question. If no, go to lose screen.
-	 * @param {*} selectedIndex 
-	 * @param {*} correctIndex 
-	 */
-	function handleAnswer(selectedIndex, correctIndex) {
-		let isCorrect = selectedIndex === correctIndex;
-		let lastQuestion = counter+1 === numQuestions;
-
-		if(isCorrect && lastQuestion) {
-			console.log('WE HAVE A WINNER');
-			props.setStatus('won');
-		} else if(isCorrect) {
-			console.log('CORRECT');
-			props.setStatus('answered');
-		} else {
-			console.log('WRONG');
-			props.setStatus('lost');
-		}
-	}
 
 	function nextQuestion() {
 		console.log('loading next question');
@@ -49,13 +26,12 @@ const Game = props => {
 
 	return props.isLoading ? "loading" : <Stage>
 		{/* <PlayerGrid players={32} counter={counter} question={props.questions[counter]} reveal={props.reveal} /> */}
-		<Question number={counter+1} data={props.questions[counter]} callback={handleAnswer} next={nextQuestion} reveal={props.reveal} />
+		<Question />
 		{/* <PlayerGrid players={32} counter={counter} question={props.questions[counter]} reveal={props.reveal} /> */}
 	</Stage>
 };
 
 const mapStateToProps = state => ({
-	questions: state.questions,
 	isLoading: state.isLoading,
 	error: state.error
 });
