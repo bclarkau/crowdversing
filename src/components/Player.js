@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux';
+import { setPlayerStatus, setPlayerAsInactive } from "../redux/actions";
 import styled from 'styled-components';
 import Avatar from './Avatar';
-import { maleNames, femaleNames } from '../dictionaries/names';
 
 const GridItem = styled.div`
 	text-align: center; 
@@ -9,42 +10,54 @@ const GridItem = styled.div`
 `;
 
 const Player = props => {
-	const [status, setStatus] = useState('waiting');
-	const [playing, setPlaying] = useState(true);
-
-	// set static player details 
-	const [isMale] = useState(props.seed >= 0.5);
-	const [name] = useState(isMale ? maleNames[Math.floor(props.seed * maleNames.length)] : femaleNames[Math.floor(props.seed * femaleNames.length)]);
-	const [intelligence] = useState(props.seed);
-	const [color] = useState(Math.floor(props.seed * 4) + 1);
-	const [icon, setIcon] = useState((isMale ? 'm' : 'f') + (Math.floor(props.seed * 23) + 1));
+	// const [status, setStatus] = useState(props.status)
+	// const [active] = useState(props.active)
 
 	useEffect(() => {
-		let timeToAnswer = 1000 + intelligence * 2000;
-		setStatus('thinking');
-		playing && setTimeout(() => answerQuestion(), timeToAnswer);
-		!playing && setIcon('close');
-	}, [props.counter]);
+		let timeToAnswer = 1000 + props.intelligence * 2000;
+		setPlayerStatus(props.player, 'thinking');
+		props.active && setTimeout(() => answerQuestion(), timeToAnswer);
+		!props.active && setIcon('close');
+	}, [props.questionIndex]);
 
 	useEffect(() => {
-		if(status === 'answered') {
-			playing ? setStatus('correct') : setStatus('incorrect');
+		if(props.status === 'answered') {
+			props.active ? setPlayerStatus(props.player, 'correct') : setPlayerStatus(props.player, 'incorrect');
 		}
 	}, [props.reveal]);
 
+	useEffect(() => {
+		console.log('player status updated');
+	}, [props.status]);
+
 	function answerQuestion() {
 		// increase chance by player intelligence (halved to prevent chance exceeding 1)
-		let chanceCorrect = props.question * intelligence;
-		setPlaying(Math.random() <= chanceCorrect);
-		setStatus('answered');
+		let chanceCorrect = props.question * props.intelligence;
+		if(Math.random() <= chanceCorrect) {
+			setPlayerAsInactive(props.id);
+		}
+		setPlayerStatus(props.player, 'answered');
 	}
 
 	return <GridItem>
-		<Avatar icon={icon} status={status} />
-		{name}
-		{status === 'thinking' && '...'}
-		{status === 'answered' && '*'}
+		<Avatar icon={props.icon} status={props.status} />
+		{props.name}
+		{props.status === 'thinking' && '...'}
+		{props.status === 'answered' && '*'}
 	</GridItem>
 }
 
-export default Player;
+
+function mapStateToProps(state, ownProps) {
+	const { players, questionIndex, reveal } = state
+	let player = players.find(player => player.id === ownProps.id);
+
+	return { 
+		questionIndex, 
+		reveal,
+		player,
+		...player
+	}
+}
+
+export default connect(mapStateToProps)(Player);
