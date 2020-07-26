@@ -1,4 +1,5 @@
 import { store } from './store';
+import { maleNames, femaleNames } from '../dictionaries/names';
 
 export function setQuestions(amount) {
 	console.info(`Fetching ${amount} questions`);
@@ -68,4 +69,50 @@ export function answerQuestion(selectedIndex, correctIndex) {
  */
 export const nextQuestion = () => dispatch => {
 	dispatch({ type: 'NEXT_QUESTION' })
+}
+
+export function setPlayers(amount=10) {
+	console.info(`Generating ${amount} players`)
+
+	let players = [];
+
+	// set static player details 
+	for (let i = 0; i < amount; i++) {
+		let isMale = Math.random() >= 0.5;
+
+		players.push({
+			id: i + 1,
+			name: isMale ? maleNames[Math.floor(Math.random() * maleNames.length)] : femaleNames[Math.floor(Math.random() * femaleNames.length)],
+			intelligence: Math.random(),
+			color: Math.floor(Math.random() * 4) + 1,
+			icon: (isMale ? 'm' : 'f') + (Math.floor(Math.random() * 23) + 1),
+			status: 'waiting',
+			active: true
+		})
+	}
+
+	return dispatch => {
+		dispatch({
+			type: 'SET_PLAYERS',
+			players: players
+		});
+	}
+}
+
+export function setPlayerStatus(player, newStatus) {
+	console.info(`Changing player ${player.id} status to ${newStatus}`)
+
+	let updatedPlayer = {...player}
+	updatedPlayer.status = newStatus
+
+	return dispatch => {
+		dispatch({
+			type: 'SET_PLAYER_DATA',
+			payload: { id: player.id, updatedPlayer }
+		});
+	}
+}
+
+export const setPlayerAsInactive = () => dispatch => {
+	dispatch({ type: 'SET_PLAYER_INACTIVE' })
 }
