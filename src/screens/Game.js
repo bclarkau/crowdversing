@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Question from "../components/Question";
 import PlayerGrid from "../components/PlayerGrid";
 import { setQuestions } from "../redux/actions";
-import { generatePlayers } from "../services/game";
 
 const Stage = styled.div`
 	display: grid;
