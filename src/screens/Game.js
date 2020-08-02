@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Question from "../components/Question";
 import PlayerGrid from "../components/PlayerGrid";
-import { setQuestions } from "../redux/actions";
+import { setQuestions, setPlayers } from "../redux/actions";
 
 const Stage = styled.div`
 	display: grid;
@@ -12,27 +12,24 @@ const Stage = styled.div`
 
 const Game = props => {
 	let numQuestions = 20;
+	let numPlayers = 8;
 
 	useEffect(() => {
 		props.setQuestions(numQuestions);
+		props.setPlayers(numPlayers);
 	}, []);
 
-	function nextQuestion() {
-		console.log('loading next question');
-		props.setStatus('playing');
-		setCounter(prevState => ++prevState);
-	}
-
 	return props.isLoading ? "loading" : <Stage>
-		{/* <PlayerGrid players={32} counter={counter} question={props.questions[counter]} reveal={props.reveal} /> */}
+		{/* <PlayerGrid count={28} /> */}
 		<Question />
-		{/* <PlayerGrid players={32} counter={counter} question={props.questions[counter]} reveal={props.reveal} /> */}
+		<PlayerGrid players={props.players} />
 	</Stage>
 };
 
 const mapStateToProps = state => ({
+	players: state.players,
 	isLoading: state.isLoading,
 	error: state.error
 });
 
-export default connect(mapStateToProps, { setQuestions })(Game);
+export default connect(mapStateToProps, { setQuestions, setPlayers })(Game);

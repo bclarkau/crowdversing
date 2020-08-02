@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from 'react-redux';
+import { setPlayers } from "../redux/actions";
 import styled from 'styled-components';
 import Player from "./Player";
 
@@ -9,7 +11,10 @@ const Grid = styled.div`
 
 const PlayerGrid = props => {
 	// const roll = Math.random() * (0.9 - 0.1) + 0.1; // get a random number to seed player answers
-	console.log('grid load', props.question);
+
+	useEffect(() => {
+		// props.playersAnswerQuestion()
+	}, []);
 
 	// calculate and set the players' answers
 	let questionDifficulty = 0; // everyone starts with 0% chance of getting correct
@@ -30,8 +35,15 @@ const PlayerGrid = props => {
 	}
 		
 	return <Grid>
-		{[...Array(props.players)].map((player, i) => <Player key={i} seed={Math.random()} counter={props.counter} question={questionDifficulty} reveal={props.reveal} />)}
+		{props.players.map((player, i) => <Player key={i} id={player.id} question={questionDifficulty} />)}
 	</Grid>
 };
 
-export default PlayerGrid;
+
+const mapStateToProps = state => ({
+	question: state.questions[state.currentQuestion],
+	questionIndex: state.currentQuestion,
+	reveal : state.revealAnswer
+});
+
+export default connect(mapStateToProps, { setPlayers })(PlayerGrid);
