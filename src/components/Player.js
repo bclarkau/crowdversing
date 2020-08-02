@@ -15,33 +15,34 @@ const Player = props => {
 
 	useEffect(() => {
 		let timeToAnswer = 1000 + props.intelligence * 2000;
-		setPlayerStatus(props.player, 'thinking');
+		props.setPlayerStatus(props.player, 'thinking');
 		props.active && setTimeout(() => answerQuestion(), timeToAnswer);
 		!props.active && setIcon('close');
 	}, [props.questionIndex]);
 
 	useEffect(() => {
 		if(props.status === 'answered') {
-			props.active ? setPlayerStatus(props.player, 'correct') : setPlayerStatus(props.player, 'incorrect');
+			props.active ? props.setPlayerStatus(props.player, 'correct') : props.setPlayerStatus(props.player, 'incorrect');
 		}
 	}, [props.reveal]);
 
 	useEffect(() => {
-		console.log('player status updated');
+		console.log('player status updated -', props.status);
 	}, [props.status]);
 
 	function answerQuestion() {
 		// increase chance by player intelligence (halved to prevent chance exceeding 1)
 		let chanceCorrect = props.question * props.intelligence;
 		if(Math.random() <= chanceCorrect) {
-			setPlayerAsInactive(props.id);
+			props.setPlayerAsInactive(props.player);
 		}
-		setPlayerStatus(props.player, 'answered');
+		props.setPlayerStatus(props.player, 'answered');
 	}
 
 	return <GridItem>
 		<Avatar icon={props.icon} status={props.status} />
 		{props.name}
+		{props.status === 'waiting' && '---'}
 		{props.status === 'thinking' && '...'}
 		{props.status === 'answered' && '*'}
 	</GridItem>
@@ -60,4 +61,4 @@ function mapStateToProps(state, ownProps) {
 	}
 }
 
-export default connect(mapStateToProps)(Player);
+export default connect(mapStateToProps, { setPlayerStatus, setPlayerAsInactive })(Player);
