@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import { setPlayerStatus, setPlayerAsInactive } from "../redux/actions";
+import { setPlayerStatus } from "../redux/actions";
 import styled from 'styled-components';
 import Avatar from './Avatar';
 
@@ -16,7 +16,7 @@ const Player = props => {
 	useEffect(() => {
 		let timeToAnswer = 1000 + props.intelligence * 2000;
 		props.setPlayerStatus(props.player, 'thinking');
-		props.active && setTimeout(() => answerQuestion(), timeToAnswer);
+		props.active && setTimeout(answerQuestion, timeToAnswer);
 		!props.active && setIcon('close');
 	}, [props.questionIndex]);
 
@@ -32,11 +32,9 @@ const Player = props => {
 
 	function answerQuestion() {
 		// increase chance by player intelligence (halved to prevent chance exceeding 1)
-		let chanceCorrect = props.question * props.intelligence;
-		if(Math.random() <= chanceCorrect) {
-			props.setPlayerAsInactive(props.player);
-		}
-		props.setPlayerStatus(props.player, 'answered');
+		let chanceCorrect = props.question * props.intelligence
+		let isCorrect = Math.random() >= chanceCorrect;
+		props.setPlayerStatus(props.player, 'answered', isCorrect)
 	}
 
 	return <GridItem>
@@ -50,15 +48,15 @@ const Player = props => {
 
 
 function mapStateToProps(state, ownProps) {
-	const { players, questionIndex, reveal } = state
+	const { players, questionIndex, revealAnswer } = state
 	let player = players.find(player => player.id === ownProps.id);
 
 	return { 
 		questionIndex, 
-		reveal,
+		reveal : revealAnswer,
 		player,
 		...player
 	}
 }
 
-export default connect(mapStateToProps, { setPlayerStatus, setPlayerAsInactive })(Player);
+export default connect(mapStateToProps, { setPlayerStatus })(Player);

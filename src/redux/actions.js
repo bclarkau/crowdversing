@@ -99,11 +99,12 @@ export function setPlayers(amount=10) {
 	}
 }
 
-export function setPlayerStatus(player, newStatus) {
+export function setPlayerStatus(player, newStatus, isActive = true) {
 	console.info(`Changing player ${player.id} status to ${newStatus}`)
 
 	let updatedPlayer = {...player}
 	updatedPlayer.status = newStatus
+	updatedPlayer.active = isActive
 
 	return dispatch => {
 		dispatch({
@@ -111,8 +112,4 @@ export function setPlayerStatus(player, newStatus) {
 			payload: { id: player.id, updatedPlayer }
 		});
 	}
-}
-
-export const setPlayerAsInactive = () => dispatch => {
-	dispatch({ type: 'SET_PLAYER_INACTIVE' })
 }

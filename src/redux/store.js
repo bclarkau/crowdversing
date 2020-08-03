@@ -53,13 +53,13 @@ function reducer(state, action) {
 				currentQuestion: state.currentQuestion + 1
 			}
 		case 'SET_PLAYERS' : 
-			console.log('SET_PLAYERS', action.players)
+			// console.log('SET_PLAYERS', action.players)
 			return {
 				...state,
 				players : action.players
 			}
 		case 'SET_PLAYER_DATA' : 
-			console.log('SET_PLAYER_DATA', action.payload);
+			// console.log('SET_PLAYER_DATA', action.payload);
 			return {
 				...state,
 				players : [...state.players].map(player => (player.id === action.payload.id ? action.payload.updatedPlayer : player))
