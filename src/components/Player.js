@@ -48,11 +48,11 @@ const Player = props => {
 
 
 function mapStateToProps(state, ownProps) {
-	const { players, questionIndex, revealAnswer } = state
+	const { players, currentQuestion, revealAnswer } = state
 	let player = players.find(player => player.id === ownProps.id);
 
 	return { 
-		questionIndex, 
+		questionIndex : currentQuestion, 
 		reveal : revealAnswer,
 		player,
 		...player
