@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import playerIcon from '../../assets';
 
@@ -11,14 +11,19 @@ const IconWrapper = styled.div`
 		fill: ${props => props.status === 'answered' && props.theme.player.answered};
 		fill: ${props => props.status === 'correct' && props.theme.player.correct};
 		fill: ${props => props.status === 'incorrect' && props.theme.player.incorrect};
-		fill: ${props => props.status === 'lost' && props.theme.player.lost};
 		width: 80%;
 		height: auto;
 	}
 `;
 
 const Avatar = props => {
-	const Icon = playerIcon[props.icon];
+	// const [icon, setIcon] = useState(props.icon)
+	const [icon, setIcon] = useState(props.icon)
+	const Icon = playerIcon[icon]
+
+	useEffect(() => {
+		props.status === 'incorrect' && setIcon('close')
+	}, [props.status])
 	
 	return <IconWrapper status={props.status}>
 		<Icon />
