@@ -50,7 +50,16 @@ function reducer(state, action) {
 			return {
 				...state,
 				revealAnswer : false,
-				currentQuestion: state.currentQuestion + 1
+				currentQuestion: state.currentQuestion + 1,
+				players : [...state.players].map(player => {
+					let updatedPlayer = {...player};
+					if(player.status === 'incorrect') {
+						updatedPlayer.active = false
+					} else {
+						updatedPlayer.status = 'waiting'
+					}
+					return updatedPlayer
+				})
 			}
 		case 'SET_PLAYERS' : 
 			// console.log('SET_PLAYERS', action.players)

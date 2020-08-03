@@ -14,10 +14,12 @@ const Player = props => {
 	// const [active] = useState(props.active)
 
 	useEffect(() => {
-		let timeToAnswer = 1000 + props.intelligence * 2000;
-		props.setPlayerStatus(props.player, 'thinking');
-		props.active && setTimeout(answerQuestion, timeToAnswer);
-		!props.active && setIcon('close');
+		if(props.active) {
+			let timeToAnswer = 1000 + props.intelligence * 2000;
+			props.setPlayerStatus(props.player, 'thinking');
+			props.active && setTimeout(answerQuestion, timeToAnswer);
+			// !props.active && props.setPlayerIcon(props.player, 'close')
+		}
 	}, [props.questionIndex]);
 
 	useEffect(() => {
