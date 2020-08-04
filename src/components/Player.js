@@ -17,30 +17,25 @@ const Player = props => {
 		if(props.active) {
 			let timeToAnswer = 1000 + props.intelligence * 2000;
 			props.setPlayerStatus(props.player, 'thinking');
-			props.active && setTimeout(answerQuestion, timeToAnswer);
-			// !props.active && props.setPlayerIcon(props.player, 'close')
+			setTimeout(() => props.setPlayerStatus(props.player, 'answered'), timeToAnswer);
 		}
 	}, [props.questionIndex]);
 
 	useEffect(() => {
 		if(props.status === 'answered') {
-			props.active ? props.setPlayerStatus(props.player, 'correct') : props.setPlayerStatus(props.player, 'incorrect');
+			checkAnswer()
 		}
 	}, [props.reveal]);
 
-	useEffect(() => {
-		console.log('player status updated -', props.status);
-	}, [props.status]);
-
-	function answerQuestion() {
+	function checkAnswer() {
 		// increase chance by player intelligence (halved to prevent chance exceeding 1)
 		let chanceCorrect = props.question * props.intelligence
-		let isCorrect = Math.random() >= chanceCorrect;
-		props.setPlayerStatus(props.player, 'answered', isCorrect)
+		let status = Math.random() >= chanceCorrect ? 'correct' : 'incorrect'
+		props.setPlayerStatus(props.player, status)
 	}
 
 	return <GridItem>
-		<Avatar icon={props.icon} status={props.status} />
+		<Avatar icon={props.icon} status={props.status} active={props.active} />
 		{props.name}
 		{props.status === 'waiting' && '---'}
 		{props.status === 'thinking' && '...'}

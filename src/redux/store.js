@@ -53,11 +53,18 @@ function reducer(state, action) {
 				currentQuestion: state.currentQuestion + 1,
 				players : [...state.players].map(player => {
 					let updatedPlayer = {...player};
-					if(player.status === 'incorrect') {
-						updatedPlayer.active = false
-					} else {
-						updatedPlayer.status = 'waiting'
+
+					if(!player.active) {
+						return updatedPlayer
 					}
+
+					if(player.status === 'incorrect') {
+						updatedPlayer.status = 'lost'
+						updatedPlayer.active = false
+						return updatedPlayer
+					} 
+						
+					updatedPlayer.status = 'waiting'
 					return updatedPlayer
 				})
 			}
