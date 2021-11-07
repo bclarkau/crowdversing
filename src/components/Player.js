@@ -7,35 +7,35 @@ import Avatar from './Avatar';
 const GridItem = styled.div`
 	text-align: center; 
 	font-size: 0.8rem;
-`;
+`
 
-const Player = props => {
+const Player = ({ active, questionIndex, reveal, player, setPlayerStatus }) => {
 	// const [status, setStatus] = useState(props.status)
 	// const [active] = useState(props.active)
 
 	useEffect(() => {
-		if(props.active) {
+		if(active) {
 			let timeToAnswer = 1000 + props.intelligence * 2000;
-			props.setPlayerStatus(props.player, 'thinking');
-			setTimeout(() => props.setPlayerStatus(props.player, 'answered'), timeToAnswer);
+			setPlayerStatus(props.player, 'thinking');
+			setTimeout(() => setPlayerStatus(props.player, 'answered'), timeToAnswer);
 		}
-	}, [props.questionIndex]);
+	}, [questionIndex])
 
 	useEffect(() => {
-		if(props.status === 'answered') {
+		if(player.status === 'answered') {
 			checkAnswer()
 		}
-	}, [props.reveal]);
+	}, [reveal])
 
 	function checkAnswer() {
 		// increase chance by player intelligence (halved to prevent chance exceeding 1)
-		let chanceCorrect = props.question * props.intelligence
+		let chanceCorrect = player.question * player.intelligence
 		let status = Math.random() >= chanceCorrect ? 'correct' : 'incorrect'
-		props.setPlayerStatus(props.player, status)
+		setPlayerStatus(player, status)
 	}
 
 	return <GridItem>
-		<Avatar icon={props.icon} status={props.status} active={props.active} />
+		<Avatar {...player} />
 		{props.name}
 		{props.status === 'waiting' && '---'}
 		{props.status === 'thinking' && '...'}
@@ -44,16 +44,14 @@ const Player = props => {
 }
 
 
-function mapStateToProps(state, ownProps) {
-	const { players, currentQuestion, revealAnswer } = state
-	let player = players.find(player => player.id === ownProps.id);
+const mapStateToProps = ({ players, currentQuestion, revealAnswer }, ownProps) => ({
+	questionIndex : currentQuestion, 
+	reveal : revealAnswer,
+	player : players.find(player => player.id === ownProps.id)
+})
 
-	return { 
-		questionIndex : currentQuestion, 
-		reveal : revealAnswer,
-		player,
-		...player
-	}
-}
+const mapDispatchToProps = dispatch => ({
+	setPlayerStatus
+})
 
-export default connect(mapStateToProps, { setPlayerStatus })(Player);
+export default connect(mapStateToProps, mapDispatchToProps)(Player);

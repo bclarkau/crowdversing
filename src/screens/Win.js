@@ -1,11 +1,17 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-const Win = props => {
+const _Win = ({ restart }) => {
 	return <div>
 		<h1>YOU WON! 🎉</h1>
-		<button onClick={() => props.dispatch({ type: 'START_GAME' })}>Play again</button>
-	</div>;
-};
+		<button onClick={restart}>Play again</button>
+	</div>
+}
 
-export default connect()(Win);
+const mapStateToProps = () => ({})
+
+const mapDispatchToProps = dispatch => ({
+	restart: () => dispatch({ type: 'START_GAME' })
+})
+
+export const Win = connect(mapStateToProps, mapDispatchToProps)(_Win)

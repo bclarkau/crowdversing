@@ -1,11 +1,17 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-const Title = props => {
+const _Title = ({ start }) => {
 	return <div>
 		<h1>CrowdVersing</h1>
-		<button onClick={() => props.dispatch({ type: 'START_GAME' })}>Start game</button>
+		<button onClick={start}>Start game</button>
 	</div>;
 };
 
-export default connect()(Title);
+const mapStateToProps = () => ({})
+
+const mapDispatchToProps = dispatch => ({
+	start: () => dispatch({ type: 'START_GAME' })
+})
+
+export const Title = connect(mapStateToProps, mapDispatchToProps)(_Title);

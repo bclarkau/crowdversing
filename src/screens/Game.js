@@ -10,19 +10,23 @@ const Stage = styled.div`
 	grid-template-columns: auto 50% auto;
 `;
 
-const Game = props => {
-	let numQuestions = 20;
-	let numPlayers = 8;
+const _Game = ({ players, isLoading, setQuestions, setPlayers, error }) => {
+	const numQuestions = 20
+	const numPlayers = 8
+
+	console.log('GAME')
 
 	useEffect(() => {
-		props.setQuestions(numQuestions);
-		props.setPlayers(numPlayers);
-	}, []);
+		setQuestions(numQuestions)
+		setPlayers(numPlayers)
+	}, [])
 
-	return props.isLoading ? "loading" : <Stage>
+	if(isLoading) return <div>loading</div>
+
+	return <Stage>
 		{/* <PlayerGrid count={28} /> */}
 		<Question />
-		<PlayerGrid players={props.players} />
+		<PlayerGrid players={players} />
 	</Stage>
 };
 
@@ -30,6 +34,11 @@ const mapStateToProps = state => ({
 	players: state.players,
 	isLoading: state.isLoading,
 	error: state.error
-});
+})
 
-export default connect(mapStateToProps, { setQuestions, setPlayers })(Game);
+const mapDispatchToProps = dispatch => ({
+	setQuestions, 
+	setPlayers
+})
+
+export const Game = connect(mapStateToProps, mapDispatchToProps)(_Game);

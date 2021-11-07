@@ -15,7 +15,7 @@ const IconWrapper = styled.div`
 		width: 80%;
 		height: auto;
 	}
-`;
+`
 
 const Avatar = props => {
 	// const [icon, setIcon] = useState(props.icon)
@@ -31,4 +31,4 @@ const Avatar = props => {
 	</IconWrapper>
 }
 
-export default Avatar;
+export default Avatar

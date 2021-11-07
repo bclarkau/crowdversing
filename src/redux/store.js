@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 const initialState = {
-	status : 'playing',
+	status : 'new',
 	questions : [],
 	currentQuestion : 0,
 	revealAnswer : false,
@@ -15,9 +15,14 @@ function reducer(state, action) {
 	console.log('reducer', state, action);
 
 	switch(action.type) {
+		case 'RESTART_GAME' : 
+			return {
+				...initialState, // reset back to the initial state
+			}
 		case 'START_GAME' : 
 			return {
-				...initialState // reset back to the initial state
+				status: 'playing',
+				isLoading: false
 			}
 		case 'WIN_GAME' : 
 			return {
@@ -30,6 +35,7 @@ function reducer(state, action) {
 				status: 'lost'
 			}
 		case 'DATA_SUCCESS' : 
+		console.log('DATA_SUCCESS', action)
 			return {
 				...state,
 				questions: action.questions,

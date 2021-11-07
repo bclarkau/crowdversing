@@ -14,10 +14,10 @@ const PlayerGrid = props => {
 
 	useEffect(() => {
 		// props.playersAnswerQuestion()
-	}, []);
+	}, [])
 
 	// calculate and set the players' answers
-	let questionDifficulty = 0; // everyone starts with 0% chance of getting correct
+	let questionDifficulty = 0 // everyone starts with 0% chance of getting correct
 
 	// increase chance by question difficulty (max 1.0)
 	switch(props.question.difficulty) {
@@ -37,13 +37,13 @@ const PlayerGrid = props => {
 	return <Grid>
 		{props.players.map((player, i) => <Player key={i} id={player.id} question={questionDifficulty} />)}
 	</Grid>
-};
+}
 
 
 const mapStateToProps = state => ({
 	question: state.questions[state.currentQuestion],
 	questionIndex: state.currentQuestion,
 	reveal : state.revealAnswer
-});
+})
 
-export default connect(mapStateToProps, { setPlayers })(PlayerGrid);
+export default connect(mapStateToProps, { setPlayers })(PlayerGrid)
