@@ -11,7 +11,7 @@ const _Win = ({ restart }) => {
 const mapStateToProps = () => ({})
 
 const mapDispatchToProps = dispatch => ({
-	restart: () => dispatch({ type: 'START_GAME' })
+	restart: () => dispatch({ type: 'RESTART_GAME' })
 })
 
 export const Win = connect(mapStateToProps, mapDispatchToProps)(_Win)

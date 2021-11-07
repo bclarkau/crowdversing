@@ -1,17 +1,11 @@
-import React from "react";
-import { connect } from 'react-redux';
+import React from 'react'
+import { useStoreActions } from 'easy-peasy'
 
-const _Title = ({ start }) => {
+export const Title = () => {
+	const start = useStoreActions(actions => actions.startGame)
+
 	return <div>
 		<h1>CrowdVersing</h1>
-		<button onClick={start}>Start game</button>
-	</div>;
-};
-
-const mapStateToProps = () => ({})
-
-const mapDispatchToProps = dispatch => ({
-	start: () => dispatch({ type: 'START_GAME' })
-})
-
-export const Title = connect(mapStateToProps, mapDispatchToProps)(_Title);
+		<button onClick={() => start()}>Start game</button>
+	</div>
+}

@@ -1,44 +1,27 @@
-import React, { useEffect } from "react";
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import Question from "../components/Question";
-import PlayerGrid from "../components/PlayerGrid";
-import { setQuestions, setPlayers } from "../redux/actions";
+import React from 'react'
+import styled from 'styled-components'
+import { useStoreState } from 'easy-peasy'
+
+import { Question } from '../components/Question'
+import { PlayerGrid } from '../components/PlayerGrid'
 
 const Stage = styled.div`
 	display: grid;
 	grid-template-columns: auto 50% auto;
 `;
 
-const _Game = ({ players, isLoading, setQuestions, setPlayers, error }) => {
-	const numQuestions = 20
-	const numPlayers = 8
+export const Game = () => {
+	const questions = useStoreState(state => state.questions)
+	const players = useStoreState(state => state.players)
+	const loading = useStoreState(state => state.loading)
 
-	console.log('GAME')
+	console.log({ players })
 
-	useEffect(() => {
-		setQuestions(numQuestions)
-		setPlayers(numPlayers)
-	}, [])
-
-	if(isLoading) return <div>loading</div>
+	if(loading) return <div>loading</div>
 
 	return <Stage>
 		{/* <PlayerGrid count={28} /> */}
-		<Question />
-		<PlayerGrid players={players} />
+		{/* <Question /> */}
+		<PlayerGrid {...{players}} />
 	</Stage>
-};
-
-const mapStateToProps = state => ({
-	players: state.players,
-	isLoading: state.isLoading,
-	error: state.error
-})
-
-const mapDispatchToProps = dispatch => ({
-	setQuestions, 
-	setPlayers
-})
-
-export const Game = connect(mapStateToProps, mapDispatchToProps)(_Game);
+}

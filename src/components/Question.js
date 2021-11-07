@@ -1,8 +1,8 @@
-import React from "react";
-import { connect } from 'react-redux';
-import { answerQuestion, nextQuestion } from "../redux/actions";
+import React from 'react'
 
-const Question = ({ number, data, reveal, answerQuestion, nextQuestion }) => {
+import { answerQuestion, nextQuestion } from '../state/actions'
+
+export const Question = () => {
 	console.log('correct answer', data.correct_answer)
 
 	// insert the correct answer at a random point in the answers array 
@@ -23,16 +23,3 @@ const Question = ({ number, data, reveal, answerQuestion, nextQuestion }) => {
 		</div>}
 	</div>
 }
-
-const mapStateToProps = state => ({
-	number: state.currentQuestion + 1,
-	data: state.questions[state.currentQuestion],
-	reveal : state.revealAnswer
-})
-
-const mapDispatchToProps = dispatch => ({
-	answerQuestion, 
-	nextQuestion
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Question);

@@ -17,16 +17,16 @@ const IconWrapper = styled.div`
 	}
 `
 
-const Avatar = props => {
+const Avatar = ({ active, status, icon }) => {
 	// const [icon, setIcon] = useState(props.icon)
 	// const [icon, setIcon] = useState(props.icon)
-	const Icon = props.active ? playerIcon[props.icon] : playerIcon['close']
+	const Icon = active ? playerIcon[icon] : playerIcon['close']
 
 	// useEffect(() => {
 	// 	props.status === 'lost' && setIcon('close')
 	// }, [props.status])
 	
-	return <IconWrapper status={props.status}>
+	return <IconWrapper {...{status}}>
 		<Icon />
 	</IconWrapper>
 }

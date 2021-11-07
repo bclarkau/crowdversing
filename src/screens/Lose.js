@@ -11,7 +11,7 @@ const _Lose = ({ restart }) => {
 const mapStateToProps = () => ({})
 
 const mapDispatchToProps = dispatch => ({
-	restart: () => dispatch({ type: 'START_GAME' })
+	restart: () => dispatch({ type: 'RESTART_GAME' })
 })
 
 export const Lose = connect(mapStateToProps, mapDispatchToProps)(_Lose)
