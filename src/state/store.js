@@ -1,8 +1,8 @@
-import { createStore, action, thunk, computed } from 'easy-peasy'
+import { createStore, action, thunk, computed, thunkOn, actionOn } from 'easy-peasy'
 
 import { fetchQuestions, fetchPlayers } from './actions'
 
-const NUM_QUESTIONS = 20
+const NUM_QUESTIONS = 3
 const NUM_PLAYERS = 8
 const GAME_STATUS = ['new', 'playing', 'won', 'lost']
 
@@ -73,6 +73,42 @@ const model = {
 	players: [],
 
 	setPlayers: action((state, payload) => { state.players = payload }),
+	setPlayerStatus: action((state, payload) => { state.players.status = payload }),
+	
+	setPlayersStatus: action(state => {
+		
+console.log('setPlayersStatus', state.players[1])
+
+		state.players.forEach(player => {
+			console.log('setting player status', player)
+			player.status = 'thinking'
+		})
+
+		// state.players = state.players.map(player => ({
+		// 	...player,
+		// 	status: 'thinking'
+		// }))
+	}),
+
+	// resolvePlayersStatus: actionOn(
+	// 	actions => actions.setPlayersStatus,
+	// 	(state, target) => {
+	// 		state.players.forEach(player => {
+				
+	// 		})
+	// 	}
+	// ),
+
+	startPlayers: thunkOn(
+		(actions, storeActions) => [ 
+			storeActions.startGame,
+			storeActions.nextQuestion,
+		],
+		(actions, target) => {
+			console.log('players start')
+			actions.setPlayersStatus()
+		}
+	)
 }
 
 export const store = createStore(model, initialState)

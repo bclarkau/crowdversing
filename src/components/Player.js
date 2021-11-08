@@ -13,13 +13,13 @@ export const Player = ({ id, name, intelligence, status, question, icon, active 
 	// const [status, setStatus] = useState(props.status)
 	// const [active] = useState(props.active)
 
-	useEffect(() => {
-		if(active) {
-			const timeToAnswer = 1000 + intelligence * 2000;
-			setPlayerStatus(id, 'thinking');
-			setTimeout(() => setPlayerStatus(id, 'answered'), timeToAnswer);
-		}
-	}, [question])
+	// useEffect(() => {
+	// 	if(active) {
+	// 		const timeToAnswer = 1000 + intelligence * 2000;
+	// 		setPlayerStatus(id, 'thinking');
+	// 		setTimeout(() => setPlayerStatus(id, 'answered'), timeToAnswer);
+	// 	}
+	// }, [question])
 
 	// useEffect(() => {
 	// 	if(status === 'answered') {

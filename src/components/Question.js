@@ -10,7 +10,6 @@ export const Question = () => {
 console.log({ number, category, question, correct_answer, incorrect_answers })
 
 	useEffect(() => {
-		console.log('useffect', question)
 		setReveal(false)
 	}, [question])
 
