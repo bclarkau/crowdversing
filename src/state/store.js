@@ -1,4 +1,4 @@
-import { createStore, action, thunk } from 'easy-peasy'
+import { createStore, action, thunk, computed } from 'easy-peasy'
 
 import { fetchQuestions, fetchPlayers } from './actions'
 
@@ -11,26 +11,21 @@ const initialState = {
 	loading: true,
 	error: '',
 	questions: [],
+	index: 0,
 	players: []
 }
 
 const model = {
+	reset: action((state, payload) => ({ ...initialState })),
+
 	// global game state
 	status: 'new',
 	loading: true,
 	error: '',
 
-	setStatus: action((state, payload) => {
-		state.status = GAME_STATUS.includes(payload) ? payload : 'new'
-	}),
-
-	setLoading: action((state, payload) => {
-		state.loading = payload
-	}),
-
-	setError: action((state, payload) => {
-		state.error = payload
-	}),
+	setStatus: action((state, payload) => { state.status = GAME_STATUS.includes(payload) ? payload : 'new' }),
+	setLoading: action((state, payload) => { state.loading = payload }),
+	setError: action((state, payload) => { state.error = payload }),
 
 	startGame: thunk(async (actions, payload) => {
 		actions.setStatus('playing')
@@ -49,21 +44,35 @@ const model = {
 		actions.setLoading(false)
 	}),
 
+	endGame: thunk(async (actions, payload) => {
+		actions.setStatus(payload)
+	}),
+
 	// question state
 	questions: [],
-	// currentQuestion: 0,
-	// revealAnswer: false,
+	index: 0,
+	question: computed(state => ({ number: state.index + 1, ...state.questions[state.index] })),
 
-	setQuestions: action((state, payload) => {
-		state.questions = payload
+	// question actions
+	setQuestions: action((state, payload) => { state.questions = payload }),
+	setIndex: action((state, payload) => { state.index = payload }),
+
+	nextQuestion: thunk((actions, payload, { getState }) => {
+		const state = getState()
+		console.log('thunk', state, state.index)
+		const next = state.index + 1
+
+		if(next >= NUM_QUESTIONS) {
+			actions.endGame('won')
+		} else {
+			actions.setIndex(next)
+		}
 	}),
 
 	// player state
 	players: [],
 
-	setPlayers: action((state, payload) => {
-		state.players = payload
-	}),
+	setPlayers: action((state, payload) => { state.players = payload }),
 }
 
 export const store = createStore(model, initialState)

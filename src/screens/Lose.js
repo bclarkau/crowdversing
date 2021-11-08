@@ -1,17 +1,10 @@
-import React from "react";
-import { connect } from 'react-redux';
+import React from 'react'
+import { useStoreActions } from 'easy-peasy'
 
-const _Lose = ({ restart }) => {
+export const Lose = () => {
+	const restart = useStoreActions(actions => actions.reset)
 	return <div>
 		<h1>YOU LOSE</h1>
-		<button onClick={restart}>Play again</button>
-	</div>;
+		<button onClick={() => restart()}>Play again</button>
+	</div>
 }
-
-const mapStateToProps = () => ({})
-
-const mapDispatchToProps = dispatch => ({
-	restart: () => dispatch({ type: 'RESTART_GAME' })
-})
-
-export const Lose = connect(mapStateToProps, mapDispatchToProps)(_Lose)

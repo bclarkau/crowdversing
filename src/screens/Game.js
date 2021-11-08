@@ -11,7 +11,6 @@ const Stage = styled.div`
 `;
 
 export const Game = () => {
-	const questions = useStoreState(state => state.questions)
 	const players = useStoreState(state => state.players)
 	const loading = useStoreState(state => state.loading)
 
@@ -21,7 +20,7 @@ export const Game = () => {
 
 	return <Stage>
 		{/* <PlayerGrid count={28} /> */}
-		{/* <Question /> */}
+		<Question />
 		<PlayerGrid {...{players}} />
 	</Stage>
 }
