@@ -2,16 +2,17 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 
 export const Question = () => {
-	const [reveal, setReveal] = useState(false)
 	const { number, category, question, correct_answer, incorrect_answers } = useStoreState(state => state.question)
+	const reveal = useStoreState(state => state.revealAnswer)
+	const setReveal = useStoreActions(actions => actions.setReveal)
 	const endGame = useStoreActions(actions => actions.endGame)
 	const goToNext = useStoreActions(actions => actions.nextQuestion)
 	
 // console.log({ number, category, question, correct_answer, incorrect_answers })
 
-	useEffect(() => {
-		setReveal(false)
-	}, [question])
+	// useEffect(() => {
+	// 	setReveal(false)
+	// }, [question])
 
 	console.log('correct answer', correct_answer)
 

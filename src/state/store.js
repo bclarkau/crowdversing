@@ -1,9 +1,9 @@
 import { createStore, action, thunk, computed, thunkOn, actionOn } from 'easy-peasy'
 
 import { fetchQuestions, fetchPlayers } from './actions'
-import { timeToAnswer } from './helpers'
+import { answeredCorrectly, checkAnswer, timeToAnswer } from './helpers'
 
-const NUM_QUESTIONS = 3
+const NUM_QUESTIONS = 20
 const NUM_PLAYERS = 8
 const GAME_STATUS = ['new', 'playing', 'won', 'lost']
 
@@ -14,12 +14,12 @@ const initialState = {
 	questions: [],
 	index: 0,
 	players: [],
-	revealAnswers: false
+	revealAnswer: false
 }
 
 const model = {
 	...initialState,
-	
+
 	reset: action((state, payload) => ({ ...initialState })),
 
 	// global game state
@@ -50,6 +50,7 @@ const model = {
 
 	// question state
 	question: computed(state => ({ number: state.index + 1, ...state.questions[state.index] })),
+	setReveal: action((state, payload) => { state.revealAnswer = payload }),
 
 	// question actions
 	setQuestions: action((state, payload) => { state.questions = payload }),
@@ -63,36 +64,38 @@ const model = {
 		if(next >= NUM_QUESTIONS) {
 			actions.endGame('won')
 		} else {
+			actions.setReveal(false)
 			actions.setIndex(next)
 		}
 	}),
 
 	// player state
+	activePlayers: computed(state => state.players.filter(player => player.active)),
 	setPlayers: action((state, payload) => { state.players = payload }),
 	setPlayerStatus: action((state, payload) => { state.players.find(player => player.id === payload.id).status = payload.status }),
+	setPlayerState: action((state, payload) => { state.players.find(player => player.id === payload.id).active = payload.active }),
 	
-	setPlayersStatus: thunk((actions, payload, { getState }) => {
+	setPlayersAnswering: thunk((actions, payload, { getState }) => {
 		const state = getState()
-
-		console.log('setPlayersStatus', state.players[1])
-
-		state.players.forEach(player => {
-			if(player.active) {
-				actions.setPlayerStatus({ id: player.id, status: 'thinking' })
-				setTimeout(() => actions.setPlayerStatus({ id: player.id, status: 'answered' }), timeToAnswer(player.intelligence))
+		state.activePlayers.forEach(player => {
+			actions.setPlayerStatus({ id: player.id, status: 'thinking' })
+			setTimeout(() => actions.setPlayerStatus({ id: player.id, status: 'answered' }), timeToAnswer(player.intelligence))
+		})
+	}),
+	
+	setPlayersAnswered: thunk((actions, payload, { getState }) => {
+		const state = getState()
+		const currentQuestion = state.question.number
+		state.activePlayers.forEach(player => {
+			const correct = answeredCorrectly(currentQuestion, player.intelligence)
+			if(correct) {
+				actions.setPlayerStatus({ id: player.id, status: 'correct' })
+			} else {
+				actions.setPlayerStatus({ id: player.id, status: 'incorrect' })
+				actions.setPlayerState({ id: player.id, active: false })
 			}
 		})
-
 	}),
-
-	// resolvePlayersStatus: actionOn(
-	// 	actions => actions.setPlayersStatus,
-	// 	(state, target) => {
-	// 		state.players.forEach(player => {
-				
-	// 		})
-	// 	}
-	// ),
 
 	startPlayers: thunkOn(
 		(actions, storeActions) => [ 
@@ -101,9 +104,18 @@ const model = {
 		],
 		(actions, target) => {
 			console.log('players start')
-			actions.setPlayersStatus()
+			actions.setPlayersAnswering()
 		}
-	)
+	),
+
+	revealPlayers: thunkOn(
+		(actions, storeActions) => [ 
+			storeActions.setReveal,
+		],
+		(actions, target) => {
+			actions.setPlayersAnswered()
+		}
+	),
 }
 
 export const store = createStore(model, initialState)

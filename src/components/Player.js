@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
+import { useStoreState } from 'easy-peasy'
 
 import { setPlayerStatus } from '../state/actions'
 import Avatar from './Avatar'
@@ -10,6 +11,8 @@ const GridItem = styled.div`
 `
 
 export const Player = ({ id, name, intelligence, status, question, icon, active }) => {
+	const reveal = useStoreState(state => state.revealAnswer)
+
 	// const [status, setStatus] = useState(props.status)
 	// const [active] = useState(props.active)
 
@@ -27,12 +30,12 @@ export const Player = ({ id, name, intelligence, status, question, icon, active 
 	// 	}
 	// }, [reveal])
 
-	function checkAnswer() {
-		// increase chance by player intelligence (halved to prevent chance exceeding 1)
-		const chanceCorrect = question * intelligence
-		const newStatus = Math.random() >= chanceCorrect ? 'correct' : 'incorrect'
-		setPlayerStatus(id, newStatus)
-	}
+	// function checkAnswer() {
+	// 	// increase chance by player intelligence (halved to prevent chance exceeding 1)
+	// 	const chanceCorrect = question * intelligence
+	// 	const newStatus = Math.random() >= chanceCorrect ? 'correct' : 'incorrect'
+	// 	setPlayerStatus(id, newStatus)
+	// }
 
 	return <GridItem>
 		<Avatar {...{ status, icon, active }} />
