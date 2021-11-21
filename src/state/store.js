@@ -71,6 +71,8 @@ const model = {
 
 	// player state
 	activePlayers: computed(state => state.players.filter(player => player.active)),
+	allPlayersAnswered: computed(state => state.activePlayers.every(player => player.status === 'answered')),
+
 	setPlayers: action((state, payload) => { state.players = payload }),
 	setPlayerStatus: action((state, payload) => { state.players.find(player => player.id === payload.id).status = payload.status }),
 	setPlayerState: action((state, payload) => { state.players.find(player => player.id === payload.id).active = payload.active }),
