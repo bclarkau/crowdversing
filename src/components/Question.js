@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 
 export const Question = () => {
@@ -7,7 +7,7 @@ export const Question = () => {
 	const endGame = useStoreActions(actions => actions.endGame)
 	const goToNext = useStoreActions(actions => actions.nextQuestion)
 	
-console.log({ number, category, question, correct_answer, incorrect_answers })
+// console.log({ number, category, question, correct_answer, incorrect_answers })
 
 	useEffect(() => {
 		setReveal(false)
@@ -16,9 +16,12 @@ console.log({ number, category, question, correct_answer, incorrect_answers })
 	console.log('correct answer', correct_answer)
 
 	// insert the correct answer at a random point in the answers array 
-	const answers = [...incorrect_answers]
-	const correctIndex = Math.floor((Math.random() * 3))
-	answers.splice(correctIndex, 0, correct_answer)
+	const correctIndex = useMemo(() => Math.floor((Math.random() * 3)), [number])
+	const answers = useMemo(() => {
+		const options = [...incorrect_answers]
+		options.splice(correctIndex, 0, correct_answer)
+		return options
+	}, [correctIndex, correct_answer])
 
 	const handleClick = useCallback(answer => {
 		if(answer === correctIndex) {

@@ -1,6 +1,7 @@
 import { createStore, action, thunk, computed, thunkOn, actionOn } from 'easy-peasy'
 
 import { fetchQuestions, fetchPlayers } from './actions'
+import { timeToAnswer } from './helpers'
 
 const NUM_QUESTIONS = 3
 const NUM_PLAYERS = 8
@@ -12,17 +13,16 @@ const initialState = {
 	error: '',
 	questions: [],
 	index: 0,
-	players: []
+	players: [],
+	revealAnswers: false
 }
 
 const model = {
+	...initialState,
+	
 	reset: action((state, payload) => ({ ...initialState })),
 
 	// global game state
-	status: 'new',
-	loading: true,
-	error: '',
-
 	setStatus: action((state, payload) => { state.status = GAME_STATUS.includes(payload) ? payload : 'new' }),
 	setLoading: action((state, payload) => { state.loading = payload }),
 	setError: action((state, payload) => { state.error = payload }),
@@ -49,8 +49,6 @@ const model = {
 	}),
 
 	// question state
-	questions: [],
-	index: 0,
 	question: computed(state => ({ number: state.index + 1, ...state.questions[state.index] })),
 
 	// question actions
@@ -59,7 +57,7 @@ const model = {
 
 	nextQuestion: thunk((actions, payload, { getState }) => {
 		const state = getState()
-		console.log('thunk', state, state.index)
+		console.log('NEXT QUESTION THUNK', state, state.index)
 		const next = state.index + 1
 
 		if(next >= NUM_QUESTIONS) {
@@ -70,24 +68,21 @@ const model = {
 	}),
 
 	// player state
-	players: [],
-
 	setPlayers: action((state, payload) => { state.players = payload }),
-	setPlayerStatus: action((state, payload) => { state.players.status = payload }),
+	setPlayerStatus: action((state, payload) => { state.players.find(player => player.id === payload.id).status = payload.status }),
 	
-	setPlayersStatus: action(state => {
-		
-console.log('setPlayersStatus', state.players[1])
+	setPlayersStatus: thunk((actions, payload, { getState }) => {
+		const state = getState()
+
+		console.log('setPlayersStatus', state.players[1])
 
 		state.players.forEach(player => {
-			console.log('setting player status', player)
-			player.status = 'thinking'
+			if(player.active) {
+				actions.setPlayerStatus({ id: player.id, status: 'thinking' })
+				setTimeout(() => actions.setPlayerStatus({ id: player.id, status: 'answered' }), timeToAnswer(player.intelligence))
+			}
 		})
 
-		// state.players = state.players.map(player => ({
-		// 	...player,
-		// 	status: 'thinking'
-		// }))
 	}),
 
 	// resolvePlayersStatus: actionOn(
